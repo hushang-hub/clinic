@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Моя Клиника – Отделения</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-red-600 shadow py-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-semibold">Моя Клиника</h1>
+      <nav class="space-x-6">
+          <div class="flex space-x-4 px-4 py-2 whitespace-nowrap">
+        <button onclick="window.location.href='catalog.html'" class="px-3 py-1 hover:text-green-800">Каталог</button>
+        <button onclick="openModal('info')" class="px-3 py-1 hover:text-blue-600">Информация</button>
+        <button onclick="openModal('staff')" class="px-3 py-1 hover:text-blue-600">Сотрудники</button>
+        <button onclick="openModal('contacts')" class="px-3 py-1 hover:text-blue-600">Контакты</button>
+        <button onclick="openModal('services')"  class="px-3 py-1 hover:text-blue-600">Услуги</button>
+        <button onclick="openModal('certs')"       class="px-3 py-1 hover:text-blue-600">Сертификаты</button>
+      </div>
+</nav>
+
+    </div>
+  </header>
+
+  <!-- Departments Grid -->
+  <main class="container mx-auto py-8">
+    <h2 class="text-3xl font-bold mb-6">Наши отделения</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Пример карточки -->
+      <div onclick="openDept('cardio')" class="p-4 bg-white rounded shadow hover:shadow-lg cursor-pointer">
+        <h3 class="text-xl font-semibold">Кардиология</h3>
+        <p class="text-gray-600 mt-2">Диагностика и лечение заболеваний сердца.</p>
+      </div>
+      <!-- Пример второй -->
+      <div onclick="openDept('neuro')" class="p-4 bg-white rounded shadow hover:shadow-lg cursor-pointer">
+        <h3 class="text-xl font-semibold">Неврология</h3>
+        <p class="text-gray-600 mt-2">Неврологические консультации и терапии.</p>
+      </div>
+      <!-- Добавьте другие отделения по аналогии -->
+    </div>
+  </main>
+
+  <!-- Общий Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-11/12 md:w-3/4 lg:w-1/2 relative">
+      <button onclick="closeModal()" class="absolute top-2 right-3 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+      <div id="modal-content" class="space-y-4 text-gray-700 text-lg"></div>
+    </div>
+  </div>
+
+  <script>
+    const deptData = {
+      cardio: {
+        title: "Кардиология",
+        desc: `Профессиональные консультации кардиологов, ЭКГ, эхокардиография, стресс-тесты и лечение.`,
+        team: "Врач: Иванов И.И., Степанова А.П.",
+        contact: "тел.: +7 123 456‑78‑90"
+      },
+      neuro: {
+        title: "Неврология",
+        desc: `Диагностика и лечение заболеваний нервной системы, консультации, нейрофизиология.`,
+        team: "Врач: Петров П.П., Сидорова Е.С.",
+        contact: "тел.: +7 123 456‑78‑91"
+      }
+      // добавляйте новые отделения аналогично
+    };
+
+    const topModals = {
+      catalog: "Полный каталог услуг клиники.",
+      info: "Информация о клинике, лицензии, миссия.",
+      staff: "Список специалистов и их квалификации.",
+      contacts: "Адрес, телефон, email и режим работы.",
+      services: "Наши основные медицинские услуги.",
+      certs: "Сертификаты и аккредитации клиники."
+    };
+
+    function openModal(type) {
+      document.getElementById('modal-content').innerHTML = `<h3 class="text-2xl font-semibold">${topModals[type]}</h3>`;
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function openDept(key) {
+      const d = deptData[key];
+      document.getElementById('modal-content').innerHTML = `
+        <h3 class="text-2xl font-bold">${d.title}</h3>
+        <p>${d.desc}</p>
+        <p><strong>Команда:</strong> ${d.team}</p>
+        <p><strong>Контакты:</strong> ${d.contact}</p>
+      `;
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+  </script>
+
+</body>
+</html>
